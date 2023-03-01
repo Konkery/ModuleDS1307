@@ -29,6 +29,7 @@ Clock.prototype.GetCurrentTime = function(format) {
 	return res.getTime(format);
 };
 
+
 // Sets check point in time in unix time format
 Clock.prototype.SetCheckPoint = function() {
 	var pt = this._rtc.getTime('unixtime');
