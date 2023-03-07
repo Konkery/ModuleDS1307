@@ -103,14 +103,6 @@ Rtc.prototype.getTime = function(unit) {
         ':' +
         this._leadZero(res.getSeconds());
       break;
-    case 'hours':
-	  res =
-		this._leadZero(res.getHours()) +
-        ':' +
-        this._leadZero(res.getMinutes()) +
-        ':' +
-        this._leadZero(res.getSeconds());
-	  break;
     default:
       break;
   }
