@@ -173,7 +173,8 @@ class ClassRealTimeClock {
      */
     SetTime(_opt) {
         /*проверить переданные аргументы на валидность*/
-        if(!(_opt instanceof ClassRealTimeClockSet)) {
+		this._rtc.setTime(_opt);
+/*        if(!(_opt instanceof ClassRealTimeClockSet)) {
             throw new ClassAppError(ClassRealTimeClock.ERROR_MSG_ARG_VALUE,
 								ClassRealTimeClock.ERROR_CODE_ARG_VALUE);
         }  
@@ -183,7 +184,7 @@ class ClassRealTimeClock {
 		else {
 			throw new err("You must fill in the values to set time",
 						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-		}     
+		}  */   
     }
 	 /**
      * @method
