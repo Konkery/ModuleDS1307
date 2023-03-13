@@ -114,7 +114,7 @@ class ClassRealTimeClockSet {
 
 /**
  * @class
- * Класс ClassRealTimeClock реализует логику работы часов реального времени.
+ * Класс ClassRealTimeClock реализует логику работы часов реального времени. Микросхема DS1307.
  * Для работы класса требуется подключить модуль ModuleAppMath, где 
  * добавляется функция проверки на целочисленностьб а так-же модуль rtc,
  * который обеспечивает базовые функции часов
@@ -124,6 +124,29 @@ class ClassRealTimeClock {
      * @constructor
      * @param {Object} _opt   - объект класса ClassRealTimeClockSet
      */
+    constructor(_opt) {
+        this.name = 'ClassRealTimeClock'; //переопределяем имя типа
+		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
+		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);		
+
+        /*проверить переданные аргументы на валидность*/
+        if ((typeof (_opt) === 'undefined')) {
+            
+            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
+						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
+        }
+		console.log('Break point 1');
+        if(!(_opt instanceof ClassRealTimeClockSet)) {
+
+            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
+						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
+        }
+		console.log('Break point 2');
+		if (_opt._date instanceof Date) {
+			this._rtc.setTime(_opt._date);
+		}
+		this._TimeZone = E.getTimeZone();
+    }
 	/*******************************************CONST********************************************/
     /**
      * @const
@@ -140,28 +163,6 @@ class ClassRealTimeClock {
      */
     static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
     /*******************************************END CONST****************************************/
-    constructor(_opt) {
-        this.name = 'ClassRealTimeClock'; //переопределяем имя типа
-		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
-		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);		
-
-        /*проверить переданные аргументы на валидность*/
-        if ((typeof (_opt) === 'undefined')) {
-            
-            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-        }
-        if(!(_opt instanceof ClassRealTimeClockSet)) {
-            
-            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-        }
-		if (_opt._date instanceof Date) {
-			this._rtc.setTime(_opt._date);
-		}
-		this._TimeZone = E.getTimeZone();
-    }
-    
     /**
      * @method
      * 
