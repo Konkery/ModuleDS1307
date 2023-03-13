@@ -46,12 +46,12 @@ class ClassRealTimeClockSet {
 		 * Если параметры все пустые - дата останется пустой
 		 * и время будет получено с датчика
 		*/
-		if (!(_day == undefined		&&
-			_month == undefined		&&
-			_year == undefined		&&
-			_hour == undefined 		&&
-			_minute == undefined	&&
-			_second == undefined)) {
+		if (_day != undefined		&&
+			_month != undefined		&&
+			_year != undefined		&&
+			_hour != undefined 		&&
+			_minute != undefined	&&
+			_second != undefined) {
 				let day = _day || 1;
 				let month = _month || 1;
 				let year = _year || 1970;
