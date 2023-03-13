@@ -145,6 +145,8 @@ class ClassRealTimeClock {
 		if (_opt._date instanceof Date) {
 			this._rtc.setTime(_opt._date);
 		}
+		console.log('Break point 3');
+
 		this._TimeZone = E.getTimeZone();
 		console.log('Break point 3');
     }
