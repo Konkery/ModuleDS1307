@@ -103,7 +103,7 @@ class ClassRealTimeClockSet {
 				/*инициализировать поля*/
 				this._date = new Date(
 					year,
-					month - 1,
+					month,
 					day,
 					hour,
 					minute,
