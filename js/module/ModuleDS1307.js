@@ -124,6 +124,22 @@ class ClassRealTimeClock {
      * @constructor
      * @param {Object} _opt   - объект класса ClassRealTimeClockSet
      */
+	/*******************************************CONST********************************************/
+    /**
+     * @const
+     * @type {number}
+     * Константа ERROR_CODE_ARG_VALUE определяет код ошибки, которая может произойти
+     * в случае передачи не валидных данных
+     */
+    static get ERROR_CODE_ARG_VALUE() { return 10; }
+    /**
+     * @const
+     * @type {string}
+     * Константа ERROR_MSG_ARG_VALUE определяет сообщение ошибки, которая может произойти
+     * в случае передачи не валидных данных
+     */
+    static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
+    /*******************************************END CONST****************************************/
     constructor(_opt) {
         this.name = 'ClassRealTimeClock'; //переопределяем имя типа
 		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
@@ -145,22 +161,7 @@ class ClassRealTimeClock {
 		}
 		this._TimeZone = E.getTimeZone();
     }
-    /*******************************************CONST********************************************/
-    /**
-     * @const
-     * @type {number}
-     * Константа ERROR_CODE_ARG_VALUE определяет код ошибки, которая может произойти
-     * в случае передачи не валидных данных
-     */
-    static get ERROR_CODE_ARG_VALUE() { return 10; }
-    /**
-     * @const
-     * @type {string}
-     * Константа ERROR_MSG_ARG_VALUE определяет сообщение ошибки, которая может произойти
-     * в случае передачи не валидных данных
-     */
-    static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
-    /*******************************************END CONST****************************************/
+    
     /**
      * @method
      * 
