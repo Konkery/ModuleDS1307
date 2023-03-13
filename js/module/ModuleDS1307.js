@@ -73,8 +73,8 @@ class ClassRealTimeClockSet {
 					!(Number.isInteger(minute))       	||
 					!(Number.isInteger(second))) {
 						
-						throw new err(ClassTypeRealTimeClockSet.ERROR_MSG_ARG_VALUE,
-									ClassTypeRealTimeClockSet.ERROR_CODE_ARG_VALUE);
+						throw new err(ClassRealTimeClockSet.ERROR_MSG_ARG_VALUE,
+									ClassRealTimeClockSet.ERROR_CODE_ARG_VALUE);
 				}
 				/*нормализовать аргументы*/
 				if (year<1970) 	{year = 1970;}
@@ -108,7 +108,7 @@ class ClassRealTimeClockSet {
 					hour,
 					minute,
 					second);
-			}
+		}
     }
 }
 
