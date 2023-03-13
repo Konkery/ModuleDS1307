@@ -147,7 +147,7 @@ class ClassRealTimeClock {
 		}
 		console.log('Break point 3');
 
-		this._TimeZone = E.getTimeZone();
+		this._TimeZone = undefined;//E.getTimeZone();
 		console.log('Break point 4');
     }
 	/*******************************************CONST********************************************/
