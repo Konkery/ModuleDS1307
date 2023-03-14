@@ -6,11 +6,12 @@ const clock_class = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS
 
 try {
 //    clock = new clock_class.ClassRealTimeClockSet(d,dd,32,fw23,9,9);
-    clock = new clock_class.ClassRealTimeClock(new clock_class.ClassRealTimeClockSet(1,1,1970,0,0,0));
+    clock = new clock_class.ClassRealTimeClock();
     
     
     //setTime();
-    //clock.SetTime(0);
+    const hDate = new Date();
+    clock.SetTimeOf(ff,'hh');
     
     let timerId = setInterval(() => OutTime(), 1000);
     function OutTime() {

@@ -5,7 +5,7 @@
  * Для работы класса требуется подключить модуль ModuleAppMath, где 
  * добавляется функция проверки на целочисленность
  */
-class ClassRealTimeClockSet {
+class ClassRTCSet {
     /**
      * @constructor
      * @param {number} _hour		- часы, принимают значение он 0 до 23
@@ -16,7 +16,7 @@ class ClassRealTimeClockSet {
 	 * @param {number} _day			- день, принимает значение от 1 до 31
      */
     constructor(_day, _month, _year, _hour, _minute, _second) {
-        this.name = 'ClassRealTimeClockSet'; //переопределяем имя типа
+        this.name = 'ClassRTCSet'; //переопределяем имя типа
 		this._date = undefined;
         
         this.Init(_day, _month, _year, _hour, _minute, _second); //инициализировать поля
@@ -73,8 +73,8 @@ class ClassRealTimeClockSet {
 					!(Number.isInteger(minute))       	||
 					!(Number.isInteger(second))) {
 						
-						throw new err(ClassRealTimeClockSet.ERROR_MSG_ARG_VALUE,
-									ClassRealTimeClockSet.ERROR_CODE_ARG_VALUE);
+						throw new err(ClassRTCSet.ERROR_MSG_ARG_VALUE,
+									ClassRTCSet.ERROR_CODE_ARG_VALUE);
 				}
 				/*нормализовать аргументы*/
 				if (year<1970) 	{year = 1970;}
@@ -114,41 +114,20 @@ class ClassRealTimeClockSet {
 
 /**
  * @class
- * Класс ClassRealTimeClock реализует логику работы часов реального времени. Микросхема DS1307.
+ * Класс ClassRTC реализует логику работы часов реального времени. Микросхема DS1307.
  * Для работы класса требуется подключить модуль ModuleAppMath, где 
- * добавляется функция проверки на целочисленностьб а так-же модуль rtc,
+ * добавляется функция проверки на целочисленность, а так-же модуль rtc,
  * который обеспечивает базовые функции часов
  */
-class ClassRealTimeClock {
+class ClassRTC {
     /**
      * @constructor
-     * @param {Object} _opt   - объект класса ClassRealTimeClockSet
+     * @param {Object} _Pin   - - объект класса Pin
      */
-    constructor(_opt) {
+    constructor(_Pin) {
         this.name = 'ClassRealTimeClock'; //переопределяем имя типа
 		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
-		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);		
-
-        /*проверить переданные аргументы на валидность*/
-        if ((typeof (_opt) === 'undefined')) {
-            
-            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-        }
-		console.log('Break point 1');
-        if(!(_opt instanceof ClassRealTimeClockSet)) {
-
-            throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-        }
-		console.log('Break point 2');
-		if (_opt._date instanceof Date) {
-			this._rtc.setTime(_opt._date);
-		}
-		console.log('Break point 3');
-
-		this._TimeZone = undefined;//E.getTimeZone();
-		console.log('Break point 4');
+		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);	
     }
 	/*******************************************CONST********************************************/
     /**
@@ -169,27 +148,89 @@ class ClassRealTimeClock {
     /**
      * @method
      * 
-     * @param {Object} _opt   - объект класса ClassRealTimeClockSet
+     * @param {Object} _opt   - Время в любом формате
      */
     SetTime(_opt) {
         /*проверить переданные аргументы на валидность*/
 		this._rtc.setTime(_opt);
-/*        if(!(_opt instanceof ClassRealTimeClockSet)) {
-            throw new ClassAppError(ClassRealTimeClock.ERROR_MSG_ARG_VALUE,
-								ClassRealTimeClock.ERROR_CODE_ARG_VALUE);
-        }  
-		if (_opt._date instanceof Date) {
-			this._rtc.setTime(_opt._date);
-		}
-		else {
-			throw new err("You must fill in the values to set time",
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-		}  */   
+
     }
+	/**
+     * @method
+     * 
+     * @param {number} _val   - Значение, на которое переводим
+	 * @param {string} _key	  - Что переводим (yy, dd, MM, hh, mm, ss)
+     */
+		SetTimeOf(_val, _key) {
+			/*проверить переданные аргументы на валидность*/
+			if (!(Number.isInteger(_val))	||
+				!(typeof _key === 'string')) {
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE(),
+								ClassRTC.ERROR_CODE_ARG_VALUE());
+			}
+
+			let date = this._rtc.getTime();
+			switch (_key) {
+				case 'yy':
+				case 'year':
+					if (_val<1970) 	{_val = 1970;}
+					if (_val>2100) 	{_val = 2100;}
+					date.year = _val;
+					break;
+				case 'MM':
+				case 'month':
+					if (_val<1) 	{_val = 1;}
+					if (_val>12) 	{_val = 12;}
+					date.month = _val - 1;
+					break;
+				case 'dd':
+				case 'day':
+					date.month++;
+					if (_val<1) 		{_val = 1;}
+					if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
+						day = 31;
+					}
+					else if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
+						day = 30;
+					}
+					else if (_val>28 && date.month==2) {
+						if (date.year%4) {_val = 28;}
+						else {_val = 29;}
+					}
+					else {_val = 1;}
+					date.month--;
+					date.day = _val;
+					break;
+				case 'hh':
+				case 'hours':
+					if (_val<0) 	{_val = 0;}
+					if (_val>23) 	{_val = 23;}
+					date.hour = _val;
+					break;
+				case 'mm':
+				case 'minute':
+					if (_val<0) 	{_val = 0;}
+					if (_val>59) 	{_val = 59;}
+					date.minute = _val;
+					break;
+				case 'ss':
+				case 'second':
+					if (_val<0) 	{_val = 0;}
+					if (_val>59) 	{_val = 59;}
+					date.second = _val;
+					break;
+				default:
+					throw new err('Invalid key',
+						ClassRTC.ERROR_CODE_ARG_VALUE);
+			}
+
+			this._rtc.setTime(date);
+		}
 	 /**
      * @method
 	 * 
      * @param {string} _format   - формат возвращаемого времени
+	 * Поддерживаемые форматы: iso - djp
      */
 	 GetTime(_format) {
         /*выбираем формат*/
@@ -211,32 +252,7 @@ class ClassRealTimeClock {
 		}
 		return res;
     }
-	 /**
-     * @method
-	 * 
-     * @param {number} _TimeZone   - время в часах относительно GMT
-     */
-	 SetTimeZone(_TimeZone) {
-        /*Проверяем валидность данных*/
-		if (!(Number.isInteger(_TimeZone))) {
-			throw new err(ClassTypeRealTimeClock.ERROR_MSG_ARG_VALUE,
-						ClassTypeRealTimeClock.ERROR_CODE_ARG_VALUE);
-		}
-		
-		if (_TimeZone<-11) {
-			_TimeZone = -11;
-		} else if (_TimeZone>12) {
-			_TimeZone = 12;
-		}
-		this._TimeZone = _TimeZone;
-	 }
-	 /**
-     * @method
-     */
-	 GetTimeZone() {
-		return 'GMT ' + (this._TimeZone<0 ? '-' : '+') + this._TimeZone;
-	 }
 }
 
-exports = { ClassRealTimeClockSet:    ClassRealTimeClockSet,
-			ClassRealTimeClock:       ClassRealTimeClock};
+exports = { ClassRTCSet:    ClassRTCSet,
+			ClassRTC:       ClassRTC};
