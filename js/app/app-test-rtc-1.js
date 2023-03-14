@@ -17,8 +17,8 @@ try {
     function OutTime() {
         const cDate = new Date();
         console.log(cDate.toISOString() + ' controller');
-        console.log(clock.GetTime('hours') + ' module\n');
+        console.log(clock.GetTime('iso') + ' module\n');
     }
 } catch(e){
-    console.log(`Error>> ${e.Message}, Code>> ${e.Code}`);
+    console.log('Error>> ' + e._Message + ' Code>> ' + e._Code);
 }
