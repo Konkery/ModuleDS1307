@@ -161,71 +161,71 @@ class ClassRTC {
      * @param {number} _val   - Значение, на которое переводим
 	 * @param {string} _key	  - Что переводим (yy, dd, MM, hh, mm, ss)
      */
-		SetTimeOf(_val, _key) {
-			/*проверить переданные аргументы на валидность*/
-			if (!(Number.isInteger(_val))	||
-				!(typeof _key === 'string')) {
-				throw new err('ERROR_MSG_ARG_VALUE',
-								'ERROR_CODE_ARG_VALUE');
-			}
-
-			let date = this._rtc._time;
-			switch (_key) {
-				case 'yy':
-				case 'year':
-					if (_val<1970) 	{_val = 1970;}
-					if (_val>2100) 	{_val = 2100;}
-					date.year = _val;
-					break;
-				case 'MM':
-				case 'month':
-					if (_val<1) 	{_val = 1;}
-					if (_val>12) 	{_val = 12;}
-					date.month = _val - 1;
-					break;
-				case 'dd':
-				case 'day':
-					date.month++;
-					if (_val<1) 		{_val = 1;}
-					if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
-						day = 31;
-					}
-					else if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
-						day = 30;
-					}
-					else if (_val>28 && date.month==2) {
-						if (date.year%4) {_val = 28;}
-						else {_val = 29;}
-					}
-					else {_val = 1;}
-					date.month--;
-					date.day = _val;
-					break;
-				case 'hh':
-				case 'hours':
-					if (_val<0) 	{_val = 0;}
-					if (_val>23) 	{_val = 23;}
-					date.hour = _val;
-					break;
-				case 'mm':
-				case 'minute':
-					if (_val<0) 	{_val = 0;}
-					if (_val>59) 	{_val = 59;}
-					date.minute = _val;
-					break;
-				case 'ss':
-				case 'second':
-					if (_val<0) 	{_val = 0;}
-					if (_val>59) 	{_val = 59;}
-					date.second = _val;
-					break;
-				default:
-					throw new err('Invalid key',
-						ClassRTC.ERROR_CODE_ARG_VALUE);
-			}
-
-			this._rtc.setTime(date);
+	SetTimeOf(_val, _key) {
+		/*проверить переданные аргументы на валидность*/
+		if (!(Number.isInteger(_val))	||
+			!(typeof _key === 'string')) {
+			throw new err('ERROR_MSG_ARG_VALUE',
+							10);
 		}
+
+		let date = this._rtc._time;
+		switch (_key) {
+			case 'yy':
+			case 'year':
+				if (_val<1970) 	{_val = 1970;}
+				if (_val>2100) 	{_val = 2100;}
+				date.year = _val;
+				break;
+			case 'MM':
+			case 'month':
+				if (_val<1) 	{_val = 1;}
+				if (_val>12) 	{_val = 12;}
+				date.month = _val - 1;
+				break;
+			case 'dd':
+			case 'day':
+				date.month++;
+				if (_val<1) 		{_val = 1;}
+				if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
+					day = 31;
+				}
+				else if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
+					day = 30;
+				}
+				else if (_val>28 && date.month==2) {
+					if (date.year%4) {_val = 28;}
+					else {_val = 29;}
+				}
+				else {_val = 1;}
+				date.month--;
+				date.day = _val;
+				break;
+			case 'hh':
+			case 'hours':
+				if (_val<0) 	{_val = 0;}
+				if (_val>23) 	{_val = 23;}
+				date.hour = _val;
+				break;
+			case 'mm':
+			case 'minute':
+				if (_val<0) 	{_val = 0;}
+				if (_val>59) 	{_val = 59;}
+				date.minute = _val;
+				break;
+			case 'ss':
+			case 'second':
+				if (_val<0) 	{_val = 0;}
+				if (_val>59) 	{_val = 59;}
+				date.second = _val;
+				break;
+			default:
+				throw new err('Invalid key',
+					ClassRTC.ERROR_CODE_ARG_VALUE);
+		}
+
+		this._rtc.setTime(date);
+	}
 	 /**
      * @method
 	 * 
