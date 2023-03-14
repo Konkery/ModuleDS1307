@@ -230,7 +230,9 @@ class ClassRTC {
      * @method
 	 * 
      * @param {string} _format   - формат возвращаемого времени
-	 * Поддерживаемые форматы: iso - djp
+	 * Поддерживаемые форматы: iso - возвращает полное время с датой;
+	 * hours - возвращает время в формате час:минута:секунда;
+	 * unix - возвращает время в секундах от 1970 года.
      */
 	 GetTime(_format) {
         /*выбираем формат*/
@@ -247,8 +249,9 @@ class ClassRTC {
 				':' +
 				this._rtc._leadZero(time.getSeconds());
         		break;
+			case 'unix':
 			default:
-			res = this._rtc.getTime('unixtime');
+				res = this._rtc.getTime('unixtime');
 		}
 		return res;
     }
