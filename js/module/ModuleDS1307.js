@@ -136,14 +136,14 @@ class ClassRTC {
      * Константа ERROR_CODE_ARG_VALUE определяет код ошибки, которая может произойти
      * в случае передачи не валидных данных
      */
-    get ERROR_CODE_ARG_VALUE() { return 10; }
+    static get ERROR_CODE_ARG_VALUE() { return 10; }
     /**
      * @const
      * @type {string}
      * Константа ERROR_MSG_ARG_VALUE определяет сообщение ошибки, которая может произойти
      * в случае передачи не валидных данных
      */
-	get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
+	static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
     /*******************************************END CONST****************************************/
     /**
      * @method
