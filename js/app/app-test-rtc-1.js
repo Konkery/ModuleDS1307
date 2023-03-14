@@ -11,7 +11,7 @@ try {
     
     //setTime();
     const hDate = new Date();
-   // clock.SetTimeOf(14,'dd');
+    clock.SetTimeOf(ff,'dd');
     
     let timerId = setInterval(() => OutTime(), 1000);
     function OutTime() {
