@@ -11,13 +11,13 @@ try {
     
     //setTime();
     const hDate = new Date();
-    clock.SetTimeOf(14,'dd');
+   // clock.SetTimeOf(14,'dd');
     
     let timerId = setInterval(() => OutTime(), 1000);
     function OutTime() {
         const cDate = new Date();
         console.log(cDate.toISOString() + ' controller');
-        console.log(clock.GetTime('iso') + ' module\n');
+        console.log(clock.GetTime('hours') + ' module\n');
     }
 } catch(e){
     console.log(`Error>> ${e.Message}, Code>> ${e.Code}`);

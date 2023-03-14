@@ -169,7 +169,7 @@ class ClassRTC {
 								ClassRTC.ERROR_CODE_ARG_VALUE);
 			}
 
-			let date = this._rtc._date;
+			let date = this._rtc._time;
 			switch (_key) {
 				case 'yy':
 				case 'year':
@@ -242,7 +242,7 @@ class ClassRTC {
 				res = this._rtc.getTime('iso');
 				break;
 			case 'hours':
-				let time = this._rtc._date;
+				let time = this._rtc._time;
 				res = this._rtc._leadZero(time.getHours()) +
 				':' +
 				this._rtc._leadZero(time.getMinutes()) +
