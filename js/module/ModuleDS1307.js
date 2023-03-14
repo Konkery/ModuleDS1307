@@ -165,8 +165,8 @@ class ClassRTC {
 			/*проверить переданные аргументы на валидность*/
 			if (!(Number.isInteger(_val))	||
 				!(typeof _key === 'string')) {
-				throw new err(this.ERROR_MSG_ARG_VALUE(),
-								this.ERROR_CODE_ARG_VALUE());
+				throw new err(this.ERROR_MSG_ARG_VALUE,
+								this.ERROR_CODE_ARG_VALUE);
 			}
 
 			let date = this._rtc._time;
