@@ -165,7 +165,7 @@ class ClassRTC {
 			/*проверить переданные аргументы на валидность*/
 			if (!(Number.isInteger(_val))	||
 				!(typeof _key === 'string')) {
-				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+				throw new err('fff'+ ClassRTC.ERROR_MSG_ARG_VALUE,
 								ClassRTC.ERROR_CODE_ARG_VALUE);
 			}
 
