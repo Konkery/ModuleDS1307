@@ -136,14 +136,14 @@ class ClassRTC {
      * Константа ERROR_CODE_ARG_VALUE определяет код ошибки, которая может произойти
      * в случае передачи не валидных данных
      */
-    static get ERROR_CODE_ARG_VALUE() { return 10; }
+    get ERROR_CODE_ARG_VALUE() { return 10; }
     /**
      * @const
      * @type {string}
      * Константа ERROR_MSG_ARG_VALUE определяет сообщение ошибки, которая может произойти
      * в случае передачи не валидных данных
      */
-    static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
+	get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
     /*******************************************END CONST****************************************/
     /**
      * @method
@@ -165,8 +165,8 @@ class ClassRTC {
 			/*проверить переданные аргументы на валидность*/
 			if (!(Number.isInteger(_val))	||
 				!(typeof _key === 'string')) {
-				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE(),
-								ClassRTC.ERROR_CODE_ARG_VALUE());
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+								ClassRTC.ERROR_CODE_ARG_VALUE);
 			}
 
 			let date = this._rtc.getTime();
