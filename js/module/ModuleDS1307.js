@@ -163,21 +163,28 @@ class ClassRTC {
      */
 	SetTimeOf(_val, _key) {
 		/*проверить переданные аргументы на валидность*/
-		//if (!(Number.isInteger(_val))	||
-		//	!(typeof _key === 'string')) {
-		//		throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
-		//			ClassRTC.ERROR_CODE_ARG_VALUE);
-		//}
+		if (!(Number.isInteger(_val))	||
+			!(typeof _key === 'string')) {
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+					ClassRTC.ERROR_CODE_ARG_VALUE);
+		}
 
-		console.log('Hey');
+		
 		let temp = this._rtc._time;
+		console.log('Hey' + temp.getFullYear());
+		let _year = 	temp.getFullYear();
+		let _month = 	this._rtc._leadZero(temp.getMonth() + 1);
+		let _day = 		this._rtc._leadZero(temp.getDate());
+		let _hour = 	this._rct._leadZero(temp.getHours());
+		let _minute = 	this._rtc._leadZero(temp.getMinutes());
+		let _second = 	this._rct._leadZero(temp.getSeconds());
 		const date = {
-			year: 	temp.getFullYear(),
-			month: 	this._rtc._leadZero(temp.getMonth() + 1),
-			day:	this._rtc._leadZero(temp.getDate()),
-			hour:	this._rct._leadZero(temp.getHours()),
-			minute:	this._rtc._leadZero(temp.getMinutes()),
-			second:	this._rct._leadZero(temp.getSeconds())
+			year: 	_year,
+			month: 	_month,
+			day:	_day,
+			hour:	_hour,
+			minute:	_minute,
+			second:	_second
 		};
 		console.log('Hey2');
 		
