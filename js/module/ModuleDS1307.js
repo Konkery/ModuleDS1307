@@ -184,6 +184,7 @@ class ClassRTC {
 				if (_val<1970) 	{_val = 1970;}
 				if (_val>2100) 	{_val = 2100;}
 				_year = _val;
+				console.log('Hey!\n');
 				break;
 			case 'MM':
 			case 'month':
@@ -226,6 +227,7 @@ class ClassRTC {
 				_second = _val;
 				break;
 			default:
+				console.log('HeyNo!\n');
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
