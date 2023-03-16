@@ -228,7 +228,7 @@ class ClassRTC {
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
-
+		console.log('\n\n' + date.year);
 		this._rtc.setTime(date);
 	}
 	/**

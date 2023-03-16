@@ -15,7 +15,8 @@ try {
 
     //console.log(cDate.toISOString() + ' controller');
     console.log(clock.GetTimeISO() + ' module\n');
-    
+    clock.SetTimeOf(2023, 'yy');
+    console.log(clock.GetTimeISO() + ' module\n');
     //let timerId = setInterval(() => OutTime(), 1000);
     //function OutTime() {
     //    const cDate = new Date();
