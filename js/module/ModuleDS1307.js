@@ -169,6 +169,7 @@ class ClassRTC {
 		//			ClassRTC.ERROR_CODE_ARG_VALUE);
 		//}
 
+		console.log('Hey');
 		let temp = this._rtc._time;
 		let date = {
 			year: 	temp.getFullYear(),
@@ -178,7 +179,7 @@ class ClassRTC {
 			minute:	this._rtc._leadZero(temp.getMinutes()),
 			second:	this._rct._leadZero(temp.getSeconds())
 		};
-		console.log('\n\n' + date.year);
+		
 		switch (_key) {
 			case 'yy':
 			case 'year':
