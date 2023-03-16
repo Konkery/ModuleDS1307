@@ -171,13 +171,14 @@ class ClassRTC {
 
 		let temp = this._rtc._time;
 		let date = {
-			year: 	res.getFullYear(),
-			month: 	this._rtc._leadZero(res.getMonth() + 1),
-			day:	this._rtc._leadZero(res.getDate()),
-			hour:	this._rct._leadZero(res.getHours()),
-			minute:	this._rtc._leadZero(res.getMinutes()),
-			second:	this._rct._leadZero(res.getSeconds())
-		};	
+			year: 	temp.getFullYear(),
+			month: 	this._rtc._leadZero(temp.getMonth() + 1),
+			day:	this._rtc._leadZero(temp.getDate()),
+			hour:	this._rct._leadZero(temp.getHours()),
+			minute:	this._rtc._leadZero(temp.getMinutes()),
+			second:	this._rct._leadZero(temp.getSeconds())
+		};
+		console.log('\n\n' + date.year);
 		switch (_key) {
 			case 'yy':
 			case 'year':
@@ -229,7 +230,7 @@ class ClassRTC {
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
-		console.log('\n\n' + date.year);
+		
 		this._rtc.setTime(date);
 	}
 	/**
