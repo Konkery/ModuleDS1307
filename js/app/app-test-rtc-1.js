@@ -9,16 +9,18 @@ try {
     clock = new clock_class.ClassRTC();
     
     
-    //setTime();
+    setTime();
     const hDate = new Date();
- //   clock.SetTimeOf(ff,'dd');
+    clock.SetTime(hDate);
+
+    //console.log(cDate.toISOString() + ' controller');
+    console.log(clock.GetTimeISO() + ' module\n');
     
-    let timerId = setInterval(() => OutTime(), 1000);
-    function OutTime() {
-        const cDate = new Date();
-        console.log(cDate.toISOString() + ' controller');
-        console.log(clock.GetTimeHours() + ' module\n');
-    }
+    //let timerId = setInterval(() => OutTime(), 1000);
+    //function OutTime() {
+    //    const cDate = new Date();
+        
+    //}
 } catch(e){
     console.log('Error>> ' + e._Message + ' Code>> ' + e._Code);
 }

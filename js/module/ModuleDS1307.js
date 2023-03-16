@@ -165,11 +165,18 @@ class ClassRTC {
 		/*проверить переданные аргументы на валидность*/
 		if (!(Number.isInteger(_val))	||
 			!(typeof _key === 'string')) {
-			throw new err('ERROR_MSG_ARG_VALUE',
-							10);
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
 
-		let date = this._rtc._time;
+		let temp = this._rtc._time;
+		let date;
+		date.year = 	res.getFullYear();
+		date.month = 	this._rtc._leadZero(res.getMonth() + 1);
+		date.day = 		this._rtc._leadZero(res.getDate());
+		date.hour = 	this._rct._leadZero(res.getHours());
+		date.minute = 	this._rtc._leadZero(res.getMinutes());
+		date.second = 	this._rct._leadZero(res.getSeconds());
 		switch (_key) {
 			case 'yy':
 			case 'year':
@@ -185,7 +192,6 @@ class ClassRTC {
 				break;
 			case 'dd':
 			case 'day':
-				date.month++;
 				if (_val<1) 		{_val = 1;}
 				if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
 					day = 31;
@@ -198,7 +204,6 @@ class ClassRTC {
 					else {_val = 29;}
 				}
 				else {_val = 1;}
-				date.month--;
 				date.day = _val;
 				break;
 			case 'hh':
@@ -220,7 +225,7 @@ class ClassRTC {
 				date.second = _val;
 				break;
 			default:
-				throw new err('Invalid key',
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
 
