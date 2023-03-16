@@ -226,33 +226,34 @@ class ClassRTC {
 
 		this._rtc.setTime(date);
 	}
-	 /**
+	/**
+	 * @method
+	 * Возвращает текущее время с модуля в формате iso
+	 */
+	GetTimeISO() {	
+		return this._rtc.getTime('iso');
+	}
+	/**
+	 * @method
+	 * Возвращает текущее время с модуля в формате unix - 
+	 * время в секундах от 1970 года.
+	 */
+	GetTimeUnix() {	
+		return this._rtc.getTime('unixtime');
+	}
+	/**
      * @method
-	 * 
-     * @param {string} _format   - формат возвращаемого времени
-	 * Поддерживаемые форматы: iso - возвращает полное время с датой;
-	 * hours - возвращает время в формате час:минута:секунда;
-	 * unix - возвращает время в секундах от 1970 года.
+	 * Возвращает текущее время с модуля в формате hours - 
+	 * час:минута:секунда;
      */
-	 GetTime(_format) {
-        /*выбираем формат*/
-		let res;
-		switch (_format) {
-			case 'iso':
-				res = this._rtc.getTime('iso');
-				break;
-			case 'hours':
-				let time = this._rtc._time;
-				res = this._rtc._leadZero(time.getHours()) +
-				':' +
-				this._rtc._leadZero(time.getMinutes()) +
-				':' +
-				this._rtc._leadZero(time.getSeconds());
-        		break;
-			case 'unix':
-			default:
-				res = this._rtc.getTime('unixtime');
-		}
+	GetTimeHours() {	
+		let res = this._rtc._time;
+		res = this._rtc._leadZero(res.getHours()) +
+			':' +
+			this._rtc._leadZero(res.getMinutes()) +
+			':' +
+			this._rtc._leadZero(res.getSeconds());
+		
 		return res;
     }
 }
