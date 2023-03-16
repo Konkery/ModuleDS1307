@@ -177,7 +177,7 @@ class ClassRTC {
 		let _hour = 	this._rct._leadZero(temp.getHours());
 		let _minute = 	this._rtc._leadZero(temp.getMinutes());
 		let _second = 	this._rct._leadZero(temp.getSeconds());
-		
+		console.log(_key + 'Hey!\n');
 		switch (_key) {
 			case 'yy':
 			case 'year':
