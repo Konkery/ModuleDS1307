@@ -170,13 +170,14 @@ class ClassRTC {
 		}
 
 		let temp = this._rtc._time;
-		let date;
-		date.year = 	res.getFullYear();
-		date.month = 	this._rtc._leadZero(res.getMonth() + 1);
-		date.day = 		this._rtc._leadZero(res.getDate());
-		date.hour = 	this._rct._leadZero(res.getHours());
-		date.minute = 	this._rtc._leadZero(res.getMinutes());
-		date.second = 	this._rct._leadZero(res.getSeconds());
+		let date = {
+			year: 	res.getFullYear(),
+			month: 	this._rtc._leadZero(res.getMonth() + 1),
+			day:	this._rtc._leadZero(res.getDate()),
+			hour:	this._rct._leadZero(res.getHours()),
+			minute:	this._rtc._leadZero(res.getMinutes()),
+			second:	this._rct._leadZero(res.getSeconds())
+		};	
 		switch (_key) {
 			case 'yy':
 			case 'year':
