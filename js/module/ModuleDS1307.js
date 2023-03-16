@@ -171,35 +171,25 @@ class ClassRTC {
 
 		
 		let temp = this._rtc._time;
-		console.log('Hey' + temp.getFullYear());
 		let _year = 	temp.getFullYear();
 		let _month = 	this._rtc._leadZero(temp.getMonth() + 1);
 		let _day = 		this._rtc._leadZero(temp.getDate());
 		let _hour = 	this._rct._leadZero(temp.getHours());
 		let _minute = 	this._rtc._leadZero(temp.getMinutes());
 		let _second = 	this._rct._leadZero(temp.getSeconds());
-		const date = {
-			year: 	_year,
-			month: 	_month,
-			day:	_day,
-			hour:	_hour,
-			minute:	_minute,
-			second:	_second
-		};
-		console.log('Hey2');
 		
 		switch (_key) {
 			case 'yy':
 			case 'year':
 				if (_val<1970) 	{_val = 1970;}
 				if (_val>2100) 	{_val = 2100;}
-				date.year = _val;
+				_year = _val;
 				break;
 			case 'MM':
 			case 'month':
 				if (_val<1) 	{_val = 1;}
 				if (_val>12) 	{_val = 12;}
-				date.month = _val - 1;
+				_month = _val - 1;
 				break;
 			case 'dd':
 			case 'day':
@@ -215,32 +205,39 @@ class ClassRTC {
 					else {_val = 29;}
 				}
 				else {_val = 1;}
-				date.day = _val;
+				_day = _val;
 				break;
 			case 'hh':
 			case 'hours':
 				if (_val<0) 	{_val = 0;}
 				if (_val>23) 	{_val = 23;}
-				date.hour = _val;
+				_hour = _val;
 				break;
 			case 'mm':
 			case 'minute':
 				if (_val<0) 	{_val = 0;}
 				if (_val>59) 	{_val = 59;}
-				date.minute = _val;
+				_minute = _val;
 				break;
 			case 'ss':
 			case 'second':
 				if (_val<0) 	{_val = 0;}
 				if (_val>59) 	{_val = 59;}
-				date.second = _val;
+				_second = _val;
 				break;
 			default:
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
 		
-		this._rtc.setTime(date);
+		this._rtc.setTime(new Date(
+			_year,
+			_month-1,
+			_day,
+			_hour,
+			_minute,
+			_second
+		));
 	}
 	/**
 	 * @method
