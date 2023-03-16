@@ -163,11 +163,11 @@ class ClassRTC {
      */
 	SetTimeOf(_val, _key) {
 		/*проверить переданные аргументы на валидность*/
-		if (!(Number.isInteger(_val))	||
-			!(typeof _key === 'string')) {
-				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
-					ClassRTC.ERROR_CODE_ARG_VALUE);
-		}
+		//if (!(Number.isInteger(_val))	||
+		//	!(typeof _key === 'string')) {
+		//		throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+		//			ClassRTC.ERROR_CODE_ARG_VALUE);
+		//}
 
 		let temp = this._rtc._time;
 		let date = {
