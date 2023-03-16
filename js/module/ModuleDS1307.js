@@ -171,7 +171,7 @@ class ClassRTC {
 
 		console.log('Hey');
 		let temp = this._rtc._time;
-		let date = {
+		const date = {
 			year: 	temp.getFullYear(),
 			month: 	this._rtc._leadZero(temp.getMonth() + 1),
 			day:	this._rtc._leadZero(temp.getDate()),
@@ -179,6 +179,7 @@ class ClassRTC {
 			minute:	this._rtc._leadZero(temp.getMinutes()),
 			second:	this._rct._leadZero(temp.getSeconds())
 		};
+		console.log('Hey2');
 		
 		switch (_key) {
 			case 'yy':
