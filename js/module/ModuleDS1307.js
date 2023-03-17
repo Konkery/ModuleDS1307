@@ -152,7 +152,8 @@ class ClassRTC {
      */
     SetTime(_opt) {
         /*проверить переданные аргументы на валидность*/
-		let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 22, 0);
+		let today = new Date();
+		let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
 		this._rtc.setTime(myToday);
 
     }

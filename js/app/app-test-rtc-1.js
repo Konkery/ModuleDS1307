@@ -11,7 +11,7 @@ try {
     
     //setTime();
     //const hDate = new Date();
-    //clock.SetTime(hDate);
+    clock.SetTime(1);
 
     //console.log(cDate.toISOString() + ' controller');
     //console.log(clock.GetTimeHours() + ' module\n');
