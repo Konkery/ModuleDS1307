@@ -150,11 +150,11 @@ class ClassRTC {
      * 
      * @param {Object} _opt   - Время в любом формате
      */
-    SetTime() {
+    SetTime(_opt) {
         /*проверить переданные аргументы на валидность*/
-		let today = new Date();
-		let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
-		this._rtc.setTime(myToday);
+		//let today = new Date();
+		//let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
+		this._rtc.setTime(_opt);
 
     }
 	/**
