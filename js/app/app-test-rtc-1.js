@@ -9,14 +9,14 @@ try {
     clock = new clock_class.ClassRTC();
     
     
-    setTime();
-    const hDate = new Date();
-    clock.SetTime(hDate);
+    //setTime();
+    //const hDate = new Date();
+    //clock.SetTime(hDate);
 
     //console.log(cDate.toISOString() + ' controller');
-    console.log(clock.GetTimeISO() + ' module\n');
-    clock.SetTimeOf(2023, 'yy');
-    console.log(clock.GetTimeISO() + ' module\n');
+    //console.log(clock.GetTimeHours() + ' module\n');
+    //clock.SetTimeOf(2023, 'yy');
+    console.log(clock.GetTimeHours() + ' module\n');
     //let timerId = setInterval(() => OutTime(), 1000);
     //function OutTime() {
     //    const cDate = new Date();
