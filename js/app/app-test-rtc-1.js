@@ -9,9 +9,9 @@ try {
     clock = new clock_class.ClassRTC();
     
     
-    setTime();
-    const hDate = new Date();
-    clock.SetTime(hDate);
+    //setTime();
+    //const hDate = new Date();
+    //clock.SetTime(hDate);
 
     //console.log(cDate.toISOString() + ' controller');
     //console.log(clock.GetTimeHours() + ' module\n');

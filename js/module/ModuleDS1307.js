@@ -163,7 +163,7 @@ class ClassRTC {
      * @param {number} _val   - Значение, на которое переводим
 	 * @param {string} _key	  - Что переводим (yy, dd, MM, hh, mm, ss)
      */
-	SetTimeOf(_val, _key) {
+	AdjustTime(_val, _key) {
 		/*проверить переданные аргументы на валидность*/
 		if (!(Number.isInteger(_val))	||
 			!(typeof _key === 'string')) {
