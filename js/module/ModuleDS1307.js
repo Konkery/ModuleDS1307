@@ -262,7 +262,7 @@ class ClassRTC {
 	 * час:минута:секунда;
      */
 	GetTimeHours() {	
-		let res = this._rtc.getTime();
+		let res = this._rtc.getTime('def');
 		res = this._rtc._leadZero(res.getHours()) +
 			':' +
 			this._rtc._leadZero(res.getMinutes()) +
