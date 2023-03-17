@@ -170,11 +170,11 @@ class ClassRTC {
 		}
 
 		
-		let temp = this._rtc._time;
-		let _year = 	temp.getFullYear();
-		let _month = 	this._rtc._leadZero(temp.getMonth() + 1);
-		let _day = 		this._rtc._leadZero(temp.getDate());
-		let _hour = 	this._rct._leadZero(temp.getHours());
+		let temp	= 	this._rtc.getTime('def');
+		let _year 	= 	temp.getFullYear();
+		let _month 	= 	this._rtc._leadZero(temp.getMonth() + 1);
+		let _day 	= 	this._rtc._leadZero(temp.getDate());
+		let _hour 	= 	this._rct._leadZero(temp.getHours());
 		let _minute = 	this._rtc._leadZero(temp.getMinutes());
 		let _second = 	this._rct._leadZero(temp.getSeconds());
 		console.log(_key + 'Hey!\n');

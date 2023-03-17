@@ -15,8 +15,10 @@ try {
 
     //console.log(cDate.toISOString() + ' controller');
     //console.log(clock.GetTimeHours() + ' module\n');
-    //clock.SetTimeOf(2023, 'yy');
-    console.log(clock.GetTimeHours() + ' module\n');
+    clock.SetTimeOf(2023, 'yy');
+    console.log(clock.GetTimeISO() + ' iso\n');
+    console.log(clock.GetTimeHours() + ' hours\n');
+    console.log(clock.GetTimeUnix() + ' unix\n');
     //let timerId = setInterval(() => OutTime(), 1000);
     //function OutTime() {
     //    const cDate = new Date();
