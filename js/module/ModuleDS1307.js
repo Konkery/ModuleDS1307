@@ -177,8 +177,8 @@ class ClassRTC {
 		let minute=newDate.getMinutes();
 		let second=newDate.getSeconds();
 		/*нормализовать аргументы*/
-		if (year<1970) 	{year = 1970;}
-		if (year>2100) 	{year = 2100;}
+		if (year<2000) 	{year = 2000;}
+		if (year>2099) 	{year = 2099;}
 		if (month<1) 	{month = 1;}
 		if (month>12) 	{month = 12;}
 		if (day<1) 		{day = 1;}
@@ -236,8 +236,8 @@ class ClassRTC {
 		switch (_key) {
 			case 'yy':
 			case 'year':
-				if (_val<1970) 	{_val = 1970;}
-				if (_val>2100) 	{_val = 2100;}
+				if (_val<2000) 	{_val = 2000;}
+				if (_val>2099) 	{_val = 2099;}
 				_year = _val;
 				break;
 			case 'MM':
