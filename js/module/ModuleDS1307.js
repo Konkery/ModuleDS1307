@@ -179,7 +179,7 @@ class ClassRTC {
 		/*нормализовать аргументы*/
 		if (year<2000) 	{year = 2000;}
 		if (year>2099) 	{year = 2099;}
-		if (month<1) 	{month = 1;}
+		/*if (month<1) 	{month = 1;}
 		if (month>12) 	{month = 12;}
 		if (day<1) 		{day = 1;}
 		if (day>31 && ((month&1)^((month>>3)&1))) {
@@ -197,7 +197,7 @@ class ClassRTC {
 		if (minute<0) 	{minute = 0;}
 		if (minute>59) 	{minute = 59;}
 		if (second<0) 	{second = 0;}
-		if (second>59) 	{second = 59;}
+		if (second>59) 	{second = 59;}*/
 
 		this._rtc.setTime(new Date(
 			year,
