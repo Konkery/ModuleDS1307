@@ -154,8 +154,15 @@ class ClassRTC {
         /*проверить переданные аргументы на валидность*/
 		//let today = new Date();
 		//let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
-		this._rtc.setTime(_opt);
-
+		//this._rtc.setTime(_opt);
+		this._rtc.setTime(new Date(
+			2023,
+			4-1,
+			20,
+			8,
+			0,
+			0
+		));
     }
 	/**
      * @method
