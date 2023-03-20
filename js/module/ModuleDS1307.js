@@ -219,13 +219,13 @@ class ClassRTC {
 			case 'dd':
 			case 'day':
 				if (_val<1) 		{_val = 1;}
-				if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
+				if (_val>31 && ((_month&1)^((_month>>3)&1))) {
 					day = 31;
 				}
-				if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
+				if (_val>30 && !((_month&1)^((_month>>3)&1))) {
 					day = 30;
 				}
-				if (_val>28 && date.month==2) {
+				if (_val>28 && _month==2) {
 					if (date.year%4) {_val = 28;}
 					else {_val = 29;}
 				}
