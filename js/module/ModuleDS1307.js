@@ -147,37 +147,75 @@ class ClassRTC {
     /*******************************************END CONST****************************************/
     /**
      * @method
-     * 
-     * @param {Object} _opt   - Время в любом формате
+     * Настривает время на модуле. Принимает объект класса Date
+	 * или строку в формате ISO
+     * @param {(Date|string)} _date   - объект класса Date или строка в формате ISO
      */
-    SetTime(_opt) {
+    SetTime(_date) {
         /*проверить переданные аргументы на валидность*/
-
-		let temp=this._rtc.getTime('def');
-		let _year=temp.getFullYear();
-		let _month=temp.getMonth() + 1;
-		let _day=temp.getDate();
-		let _hour=temp.getHours();
-		let _minute=temp.getMinutes();
-		let _second=temp.getSeconds();
+		let newDate;
+		if (typeof _date === 'string' &&
+			(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(str))) {
+			newDate = new Date(_date);
+			if (!(newDate instanceof Date)) {
+				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+					ClassRTC.ERROR_CODE_ARG_VALUE);
+				}
+		}
+		else if (_date instanceof Date) {
+			newDate = _date;
+		}
+		else {
+			throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
+				ClassRTC.ERROR_CODE_ARG_VALUE);
+		}
+		/*проверить, что дата поддерживается модулем*/
+		let year=newDate.getFullYear();
+		let month=newDate.getMonth() + 1;
+		let day=newDate.getDate();
+		let hour=newDate.getHours();
+		let minute=newDate.getMinutes();
+		let second=newDate.getSeconds();
+		/*нормализовать аргументы*/
+		if (year<1970) 	{year = 1970;}
+		if (year>2100) 	{year = 2100;}
+		if (month<1) 	{month = 1;}
+		if (month>12) 	{month = 12;}
+		if (day<1) 		{day = 1;}
+		if (day>31 && ((month&1)^((month>>3)&1))) {
+			day = 31;
+		}
+		else if (day>30 && !((month&1)^((month>>3)&1))) {
+			day = 30;
+		}
+		else if (day>28 && month==2) {
+			if (year%4) {day = 28;}
+			else {day = 29;}
+		}
+		else {day = 1;}
+		if (hour<0) 	{hour = 0;}
+		if (hour>23) 	{hour = 23;}
+		if (minute<0) 	{minute = 0;}
+		if (minute>59) 	{minute = 59;}
+		if (second<0) 	{second = 0;}
+		if (second>59) 	{second = 59;}
 
 		this._rtc.setTime(new Date(
-			_year,
-			_month-1,
-			_day,
-			_hour,
-			_minute,
-			_second
+			year,
+			month-1,
+			day,
+			hour,
+			minute,
+			second
 		));
     }
 	/**
      * @method
-	 * Единовременно изменяет одну из величин даты,
-	 * от года до секунды, а также обеспечивает валидность
+	 * Единовременно изменяет одну из величин даты, от года до секунды, а также обеспечивает валидность
 	 * вводимых данных (Если год выбран вне поддерживаемого схемой диапазона,
-	 * то он будет автоматически подогнан к допустимому минимуму или максимуму)     * 
-     * @param {number} _val   - Значение, на которое переводим
-	 * @param {string} _key	  - Что переводим (yy, dd, MM, hh, mm, ss)
+	 * то он будет автоматически подогнан к допустимому минимуму или максимуму)
+     * @param {number} _val   - значение, на которое переводим
+	 * @param {string} _key	  - что переводим (yy, dd, MM, hh, mm, ss)
      */
 	AdjustTime(_val, _key) {
 		/*проверить переданные аргументы на валидность*/
@@ -260,32 +298,36 @@ class ClassRTC {
 	/**
 	 * @method
 	 * Возвращает текущее время с модуля в формате iso
+	 * @returns {string}	_res	- строка вида 2020-01-01T13:55:16
 	 */
 	GetTimeISO() {	
-		return this._rtc.getTime('iso');
+		let _res = this._rtc.getTime('iso');
+		return _res;
 	}
 	/**
 	 * @method
 	 * Возвращает текущее время с модуля в формате unix - 
 	 * время в секундах от 1970 года.
+	 * @returns {string}	_res	- строка вида 144712561
 	 */
 	GetTimeUnix() {	
-		return this._rtc.getTime('unixtime');
+		let _res = this._rtc.getTime('unixtime');
+		return _res;
 	}
 	/**
      * @method
-	 * Возвращает текущее время с модуля в формате hours - 
-	 * час:минута:секунда;
+	 * Возвращает текущее время с модуля в формате - час:минута:секунда 
+	 * @returns {string}	_res	- строка вида 12:33:23
      */
-	GetTimeHours() {	
-		let res = this._rtc.getTime('def');
-		res = this._rtc._leadZero(res.getHours()) +
+	GetTimeHMS() {	
+		let time = this._rtc.getTime('def');
+		let _res = this._rtc._leadZero(time.getHours()) +
 			':' +
-			this._rtc._leadZero(res.getMinutes()) +
+			this._rtc._leadZero(time.getMinutes()) +
 			':' +
-			this._rtc._leadZero(res.getSeconds());
+			this._rtc._leadZero(time.getSeconds());
 		
-		return res;
+		return _res;
     }
 }
 
