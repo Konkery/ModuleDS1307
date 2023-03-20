@@ -125,7 +125,7 @@ class ClassRTC {
      * @param {Object} _Pin   - - объект класса Pin
      */
     constructor() {
-        this.name = 'ClassRealTimeClock'; //переопределяем имя типа
+        this.name = 'ClassRTC'; //переопределяем имя типа
 		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
 		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);
     }
@@ -152,13 +152,30 @@ class ClassRTC {
      */
     SetTime(_opt) {
         /*проверить переданные аргументы на валидность*/
-		//let today = new Date();
-		//let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
-		this._rtc.setTime(_opt);
+
+		let temp=this._rtc.getTime('def');
+		let _year=temp.getFullYear();
+		let _month=temp.getMonth() + 1;
+		let _day=temp.getDate();
+		let _hour=temp.getHours();
+		let _minute=temp.getMinutes();
+		let _second=temp.getSeconds();
+
+		this._rtc.setTime(new Date(
+			_year,
+			_month-1,
+			_day,
+			_hour,
+			_minute,
+			_second
+		));
     }
 	/**
      * @method
-     * 
+	 * Единовременно изменяет одну из величин даты,
+	 * от года до секунды, а также обеспечивает валидность
+	 * вводимых данных (Если год выбран вне поддерживаемого схемой диапазона,
+	 * то он будет автоматически подогнан к допустимому минимуму или максимуму)     * 
      * @param {number} _val   - Значение, на которое переводим
 	 * @param {string} _key	  - Что переводим (yy, dd, MM, hh, mm, ss)
      */
@@ -169,6 +186,7 @@ class ClassRTC {
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
+		/*получить время с часов*/
 		let temp=this._rtc.getTime('def');
 		let _year=temp.getFullYear();
 		let _month=temp.getMonth() + 1;
@@ -176,14 +194,13 @@ class ClassRTC {
 		let _hour=temp.getHours();
 		let _minute=temp.getMinutes();
 		let _second=temp.getSeconds();
-		console.log(_key + 'Hey!\n');
+		/*по ключу выбрать проверку и настроить дату*/
 		switch (_key) {
 			case 'yy':
 			case 'year':
 				if (_val<1970) 	{_val = 1970;}
 				if (_val>2100) 	{_val = 2100;}
 				_year = _val;
-				console.log('Hey!\n');
 				break;
 			case 'MM':
 			case 'month':
@@ -226,11 +243,11 @@ class ClassRTC {
 				_second = _val;
 				break;
 			default:
-				console.log('HeyNo!\n');
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
 		
+		/*записать измененное время*/
 		this._rtc.setTime(new Date(
 			_year,
 			_month-1,
