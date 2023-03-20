@@ -1,2 +1,4 @@
 # ModuleDS1307
-Espruino module supports DS1307 real-time clock chip
+Модуль поддерживает работу и реализует базовые функции часов реального времени на базе чипа DS1307. Тестирование проводилось на модуле Амперка RTC-DS1307. Реализованные функции включают в себя чтение времени с датчика в нескольких форматах: ISO, Unix - секунды от начала 1970 года, ЧЧ:ММ:СС. Пример вывода времени в формате ISO представлен в файле index.js. Также имеется возможность установки полного времени, а также корректировка по одному из параметров даты. Пример использования этих функций представлен в файле app-test-rtc-1.js.
+
+This program module allows to work with RTC based on DS1307 and includes its basic functions. Testing was done using module RTC-DS1307 by Amperka. The following solution includes next possibilities: read date from module in several formats: ISO, Unix - the amount of seconds that have passed from 1970, and HH:MM:SS string. You can see the example of ISO string output in index.js file. Also you can set the full date by your choice, or adjust its single component by some amount of corresponding units. These examples can be seen in app-test-rtc-1.js file.
