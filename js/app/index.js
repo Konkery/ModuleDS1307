@@ -7,7 +7,8 @@ const clock_class = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS
 try {
     let clock = new clock_class();
     
-    setTime();
+    const cDate = new Date();
+    cDate.setTime();
 
     let timerId = setInterval(() => OutTime(), 1000);
     function OutTime() {
