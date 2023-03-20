@@ -5,13 +5,15 @@ const NumIs = require('https://raw.githubusercontent.com/Konkery/ModuleAppMath/m
 const clock_class = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/ModuleDS1307.min.js');
 
 try {
-    let clock = new clock_class.ClassRTC();
+    let clock = new clock_class();
     
-    
+    setTime();
 
     let timerId = setInterval(() => OutTime(), 1000);
     function OutTime() {
-        console.log(clock.GetTimeISO() + '\n');        
+        const cDate = new Date();
+        console.log(cDate.toISOString() + ' controller');
+        console.log(clock.GetTimeISO() + ' module\n');      
     }
 
 } catch(e){
