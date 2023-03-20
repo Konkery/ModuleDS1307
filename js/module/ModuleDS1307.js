@@ -127,7 +127,7 @@ class ClassRTC {
     constructor() {
         this.name = 'ClassRealTimeClock'; //переопределяем имя типа
 		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
-		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);	
+		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);
     }
 	/*******************************************CONST********************************************/
 	/**
@@ -154,15 +154,7 @@ class ClassRTC {
         /*проверить переданные аргументы на валидность*/
 		//let today = new Date();
 		//let myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 25, 0);
-		//this._rtc.setTime(_opt);
-		this._rtc.setTime(new Date(
-			2023,
-			4-1,
-			20,
-			8,
-			0,
-			0
-		));
+		this._rtc.setTime(_opt);
     }
 	/**
      * @method
@@ -177,8 +169,6 @@ class ClassRTC {
 				throw new err(ClassRTC.ERROR_MSG_ARG_VALUE,
 					ClassRTC.ERROR_CODE_ARG_VALUE);
 		}
-
-		
 		let temp=this._rtc.getTime('def');
 		let _year=temp.getFullYear();
 		let _month=temp.getMonth() + 1;
