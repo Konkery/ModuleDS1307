@@ -171,7 +171,7 @@ class ClassRTC {
 		}
 		/*проверить, что дата поддерживается модулем*/
 		let year=newDate.getFullYear();
-		let month=3;//newDate.getMonth() + 1;
+		let month=newDate.getMonth() + 1;
 		let day=newDate.getDate();
 		let hour=newDate.getHours();
 		let minute=newDate.getMinutes();
@@ -192,7 +192,6 @@ class ClassRTC {
 			if (year%4) {day = 28;}
 			else {day = 29;}
 		}
-		else {day = 1;}
 		if (hour<0) 	{hour = 0;}
 		if (hour>23) 	{hour = 23;}
 		if (minute<0) 	{minute = 0;}
