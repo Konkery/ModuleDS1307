@@ -8,9 +8,9 @@ try {
 //    clock = new clock_class.ClassRealTimeClockSet(d,dd,32,fw23,9,9);
     let clock = new clock_class.ClassRTC();
 
-    //clock.SetTime(new Date(2023,4-1,20,10,0,0));
+    clock.SetTime(new Date(2015,11,10,9,14,47));
 
-    clock.AdjustTime(30, 'mm');
+    //clock.AdjustTime(30, 'mm');
     
     console.log(clock.GetTimeISO() + ' iso\n');
 
