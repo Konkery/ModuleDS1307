@@ -9,13 +9,13 @@ try {
     clock = new clock_class.ClassRTC();
     
     
-    setTime();
-    const hDate = new Date();
-    clock.SetTime(hDate);
+    //setTime();
+    //const hDate = new Date();
+    //clock.SetTime(hDate);
 
     //console.log(cDate.toISOString() + ' controller');
     //console.log(clock.GetTimeHours() + ' module\n');
-    //clock.AdjustTime(2023, 'yy');
+    clock.AdjustTime(10, 'mm');
     console.log(clock.GetTimeISO() + ' iso\n');
     console.log(clock.GetTimeHours() + ' hours\n');
     console.log(clock.GetTimeUnix() + ' unix\n');
