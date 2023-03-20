@@ -139,7 +139,7 @@ class ClassRTC {
      * @constructor
      * @param {Object} _Pin   - - объект класса Pin
      */
-    constructor(_Pin) {
+    constructor() {
         this.name = 'ClassRealTimeClock'; //переопределяем имя типа
 		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
 		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/rtc.min.js').connect(PrimaryI2C);	

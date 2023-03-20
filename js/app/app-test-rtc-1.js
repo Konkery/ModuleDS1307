@@ -15,7 +15,7 @@ try {
 
     //console.log(cDate.toISOString() + ' controller');
     //console.log(clock.GetTimeHours() + ' module\n');
-    clock.AdjustTime(10, 'mm');
+    //clock.AdjustTime(11, 'mm');
     console.log(clock.GetTimeISO() + ' iso\n');
     console.log(clock.GetTimeHours() + ' hours\n');
     console.log(clock.GetTimeUnix() + ' unix\n');
