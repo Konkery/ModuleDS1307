@@ -171,42 +171,13 @@ class ClassRTC {
 		}
 		/*проверить, что дата поддерживается модулем*/
 		let year=newDate.getFullYear();
-		let month=newDate.getMonth() + 1;
-		let day=newDate.getDate();
-		let hour=newDate.getHours();
-		let minute=newDate.getMinutes();
-		let second=newDate.getSeconds();
 		/*нормализовать аргументы*/
 		if (year<2000) 	{year = 2000;}
 		if (year>2099) 	{year = 2099;}
-		/*if (month<1) 	{month = 1;}
-		if (month>12) 	{month = 12;}
-		if (day<1) 		{day = 1;}
-		if (day>31 && ((month&1)^((month>>3)&1))) {
-			day = 31;
-		}
-		else if (day>30 && !((month&1)^((month>>3)&1))) {
-			day = 30;
-		}
-		else if (day>28 && month==2) {
-			if (year%4) {day = 28;}
-			else {day = 29;}
-		}
-		if (hour<0) 	{hour = 0;}
-		if (hour>23) 	{hour = 23;}
-		if (minute<0) 	{minute = 0;}
-		if (minute>59) 	{minute = 59;}
-		if (second<0) 	{second = 0;}
-		if (second>59) 	{second = 59;}*/
 
-		this._rtc.setTime(new Date(
-			year,
-			month-1,
-			day,
-			hour,
-			minute,
-			second
-		));
+		newDate.getFullYear(year);
+
+		this._rtc.setTime(newDate);
     }
 	/**
      * @method
@@ -251,14 +222,13 @@ class ClassRTC {
 				if (_val>31 && ((date.month&1)^((date.month>>3)&1))) {
 					day = 31;
 				}
-				else if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
+				if (_val>30 && !((date.month&1)^((date.month>>3)&1))) {
 					day = 30;
 				}
-				else if (_val>28 && date.month==2) {
+				if (_val>28 && date.month==2) {
 					if (date.year%4) {_val = 28;}
 					else {_val = 29;}
 				}
-				else {_val = 1;}
 				_day = _val;
 				break;
 			case 'hh':
