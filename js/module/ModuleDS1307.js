@@ -214,7 +214,7 @@ class ClassRTC {
 			case 'month':
 				if (_val<1) 	{_val = 1;}
 				if (_val>12) 	{_val = 12;}
-				_month = _val;
+				_month = _val + 1;
 				break;
 			case 'dd':
 			case 'day':
