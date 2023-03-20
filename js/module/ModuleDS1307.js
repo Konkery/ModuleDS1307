@@ -171,7 +171,7 @@ class ClassRTC {
 		}
 		/*проверить, что дата поддерживается модулем*/
 		let year=newDate.getFullYear();
-		let month=newDate.getMonth() + 1;
+		let month=3;//newDate.getMonth() + 1;
 		let day=newDate.getDate();
 		let hour=newDate.getHours();
 		let minute=newDate.getMinutes();
