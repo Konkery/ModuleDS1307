@@ -10,7 +10,7 @@ class ClassDS1307 {
      * @constructor
      * @param {Object} _Pin   - - объект класса Pin
      */
-    constructor() {
+    constructor(_opts) {
         this.name = 'ClassClassDS1307'; //переопределяем имя типа
 		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/BaseClassDS1307.min.js').connect((new ClassI2CBus).AddBus({sda: _opts._Pins[0], scl: _opts._Pins[1], bitrate: 100000}).IDbus);
     }
