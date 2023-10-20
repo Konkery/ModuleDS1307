@@ -1,3 +1,4 @@
+const ClassMiddleSensor = require('ClassSensorArchitecture');
 /**
  * @class
  * Класс ClassRTC реализует логику работы часов реального времени. Микросхема DS1307.
@@ -5,15 +6,20 @@
  * добавляется функция проверки на целочисленность, а так-же модуль rtc,
  * который обеспечивает базовые функции часов
  */
-class ClassDS1307 {
+class ClassDS1307 extends ClassMiddleSensor {
     /**
      * @constructor
-     * @param {Object} _Pin   - - объект класса Pin
+	 * @param {Object} _opts   			- Объект с параметрами по нотации ClassMiddleSensor
+	 * @param {Object} _sensor_props    - Объект для инициализации по нотации ClassMiddleSensor
      */
-    constructor() {
-        this.name = 'ClassClassDS1307'; //переопределяем имя типа
-		PrimaryI2C.setup({ sda: SDA, scl: SCL, bitrate: 100000 });
-		this._rtc = require('https://raw.githubusercontent.com/AlexGlgr/ModuleDS1307/fork-Alexander/js/module/BaseClassDS1307.min.js').connect(PrimaryI2C);
+    constructor(_opts, _sensor_props) {
+		ClassMiddleSensor.apply(this, [_opts, _sensor_props]);
+        this._Name = 'ClassClassDS1307'; //переопределяем имя типа
+		this._Rtc = require('BaseClassDS1307.min.js').connect(_opts.bus);
+		this._MinPeriod = 100;
+		this._UsedChannels = [];
+        this._Interval;
+		this.Init(_sensor_props);
     }
 	/*******************************************CONST********************************************/
 	/**
@@ -31,6 +37,13 @@ class ClassDS1307 {
      */
 	static get ERROR_MSG_ARG_VALUE() { return `ERROR>> invalid data. ClassID: ${this.name}`; }
     /*******************************************END CONST****************************************/
+	/**
+     * @method
+     * Инициализирует датчик
+     */
+    Init(_sensor_props) {
+        super.Init(_sensor_props);
+    }
     /**
      * @method
      * Настривает время на модуле. Принимает объект класса Date
@@ -63,7 +76,7 @@ class ClassDS1307 {
 
 		newDate.getFullYear(year);
 
-		this._rtc.setTime(newDate);
+		this._Rtc.setTime(newDate);
     }
 	/**
      * @method
@@ -81,7 +94,7 @@ class ClassDS1307 {
 					ClassDS1307.ERROR_CODE_ARG_VALUE);
 		}
 		/*получить время с часов*/
-		let temp=this._rtc.getTime('def');
+		let temp=this._Rtc.getTime('def');
 		let _year=temp.getFullYear();
 		let _month=temp.getMonth() + 1;
 		let _day=temp.getDate();
@@ -141,7 +154,7 @@ class ClassDS1307 {
 		}
 		
 		/*записать измененное время*/
-		this._rtc.setTime(new Date(
+		this._Rtc.setTime(new Date(
 			_year,
 			_month-1,
 			_day,
@@ -156,7 +169,7 @@ class ClassDS1307 {
 	 * @returns {string}	_res	- строка вида 2020-01-01T13:55:16
 	 */
 	GetTimeISO() {	
-		let _res = this._rtc.getTime('iso');
+		let _res = this._Rtc.getTime('iso');
 		return _res;
 	}
 	/**
@@ -166,7 +179,7 @@ class ClassDS1307 {
 	 * @returns {string}	_res	- строка вида 144712561
 	 */
 	GetTimeUnix() {	
-		let _res = this._rtc.getTime('unixtime');
+		let _res = this._Rtc.getTime('unixtime');
 		return _res;
 	}
 	/**
@@ -175,14 +188,53 @@ class ClassDS1307 {
 	 * @returns {string}	_res	- строка вида 12:33:23
      */
 	GetTimeHMS() {	
-		let time = this._rtc.getTime('def');
-		let _res = this._rtc._leadZero(time.getHours()) +
+		let time = this._Rtc.getTime('def');
+		let _res = this._Rtc._leadZero(time.getHours()) +
 			':' +
-			this._rtc._leadZero(time.getMinutes()) +
+			this._Rtc._leadZero(time.getMinutes()) +
 			':' +
-			this._rtc._leadZero(time.getSeconds());
+			this._Rtc._leadZero(time.getSeconds());
 		
 		return _res;
+    }
+	/**
+     * @method
+     * Запускает сбор данных с датчика и передачи их в каналы
+     * @param {Number} _period          - частота опроса (минимум 100 мс)
+     * @param {Number} _num_channel     - номер канала
+     */
+    Start(_num_channel, _period) {
+        let period = (typeof _period === 'number' & _period >= this._MinPeriod) ? _period    //частота сверяется с минимальной
+                 : this._MinPeriod;
+
+        if (!this._UsedChannels.includes(_num_channel)) this._UsedChannels.push(_num_channel); //номер канала попадает в список опрашиваемых каналов. Если интервал уже запущен с таким же периодои, то даже нет нужды его перезапускать 
+        if (!this._Interval) {          //если в данный момент не ведется ни одного опроса
+            this._Interval = setInterval(() => {
+                if (this._UsedChannels.includes(0)) this.Ch0_Value = this.GetTimeUnix();
+            });
+        }
+    }
+    /**
+     * @method
+     * Меняет частоту опроса датчика
+     * @param {Number} freq     - новая частота опроса (минимум 1000 мс)
+     */
+    ChangeFreq(_num_channel, freq) {
+        clearInterval(this._Interval);
+        setTimeout(() => this.Start(freq), this._Minfrequency);
+    }
+    /**
+     * @methhod
+     * Останавливает сбор данных с датчика
+     * @param {Number} _num_channel   - номер канала, в который должен быть остановлен поток данных
+     */
+    Stop(_num_channel) {
+        if (_num_channel) this._UsedChannels.splice(this._UsedChannels.indexOf(_num_channel));
+        else {
+            this._UsedChannels = [];
+            clearInterval(this._Interval);
+            this._Interval = null;
+        }
     }
 }
 

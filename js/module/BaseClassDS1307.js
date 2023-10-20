@@ -1,5 +1,5 @@
 // Class initialization
-var Rtc = function(i2c) {
+let Rtc = function(i2c) {
   this._time = undefined;
   if (i2c) {
     this._i2c = i2c;
@@ -61,7 +61,7 @@ Rtc.prototype.setTime = function(time) {
     this._time = new Date(getTime() * 1000);
   }
 
-  var halt = this.read(0x00, 1)[0] >> 7;
+  let halt = this.read(0x00, 1)[0] >> 7;
   this.write(0x00, [
     this._decToBcd(this._time.getSeconds()) | (halt << 7),
     this._decToBcd(this._time.getMinutes()),
@@ -74,7 +74,7 @@ Rtc.prototype.setTime = function(time) {
 };
 
 Rtc.prototype.getTime = function(unit) {
-  var time = this.read(0x00, 7);
+  let time = this.read(0x00, 7);
   this._time = new Date(
     this._bcdToDec(time[6]) + 2000,
     this._bcdToDec(time[5]) - 1,
@@ -84,7 +84,7 @@ Rtc.prototype.getTime = function(unit) {
     this._bcdToDec(time[0] & 0x7f)
   );
 
-  var res = this._time;
+  let res = this._time;
   switch (unit) {
     case 'unixtime':
       res = Math.ceil(res.getTime() / 1000);
@@ -110,14 +110,14 @@ Rtc.prototype.getTime = function(unit) {
 };
 
 Rtc.prototype.start = function() {
-  var byte = this.read(0x00, 1)[0];
+  let byte = this.read(0x00, 1)[0];
   if (byte >> 7) {
     this.write(0x00, byte ^ 0x80);
   }
 };
 
 Rtc.prototype.stop = function() {
-  var byte = this.read(0x00, 1)[0];
+  let byte = this.read(0x00, 1)[0];
   if (byte >> 7 === 0) {
     this.write(0x00, byte ^ 0x80);
   }
